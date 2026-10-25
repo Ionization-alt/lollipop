@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday, Erha!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@500;700&family=Nunito:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbe2ed; --spark:#f19ab9; --shadow:rgba(150,40,90,.38);
+  --env-back:#c23c72; --env-front:#d94c82; --env-fold:#e0628f; --env-flap:#ea7aa3; --env-flap-in:#c83f75;
+  --seal:#8f2152; --paper:#fffafc; --ink:#4a1631; --soft:#8a4a68; --accent:#d94c82;
+  --rule:#f6d3e0; --margin:#f3a3bf;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#2a1020;--spark:#7a2f55;--shadow:rgba(0,0,0,.6);color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#2a1020;--spark:#7a2f55;--shadow:rgba(0,0,0,.6);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;
+  display:flex;min-height:100vh;padding:36px 18px 56px;overflow-x:hidden;
+}
+.sparkles{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.sparkles span{position:absolute;color:var(--spark);line-height:1}
+.stage{position:relative;width:100%;max-width:400px;margin:auto}
+
+/* ---------- 3D envelope ---------- */
+.env{
+  position:relative;display:block;width:100%;max-width:340px;aspect-ratio:4/3;margin:0 auto;
+  border:0;background:none;padding:0;cursor:pointer;font:inherit;
+  perspective:900px;filter:drop-shadow(0 26px 20px var(--shadow));
+  animation:bob 3.6s ease-in-out infinite;
+  transition:opacity .5s, transform .5s;
+}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -9px}}
+.env:focus-visible{outline:3px solid var(--ink);outline-offset:8px;border-radius:12px}
+.env>*{position:absolute}
+.back{inset:0;background:var(--env-back);border-radius:10px}
+.peek{
+  left:6%;right:6%;top:12%;bottom:5%;background:var(--paper);border-radius:6px;z-index:1;
+  padding:16px 18px;display:flex;flex-direction:column;gap:9px;
+  transition:transform .9s cubic-bezier(.3,.9,.3,1) .5s;
+}
+.peek i{display:block;height:5px;border-radius:3px;background:var(--rule)}
+.peek i:nth-child(1){width:55%;background:var(--margin)}
+.peek i:nth-child(2){width:92%}.peek i:nth-child(3){width:84%}.peek i:nth-child(4){width:90%}
+.front{inset:0;z-index:2;background:var(--env-front);border-radius:10px;clip-path:polygon(0 0,50% 54%,100% 0,100% 100%,0 100%)}
+.fold{inset:0;z-index:2;background:var(--env-fold);border-radius:10px;clip-path:polygon(0 100%,50% 50%,100% 100%)}
+.flap{
+  left:0;right:0;top:0;height:54%;z-index:3;transform-origin:top center;transform-style:preserve-3d;
+  transition:transform .75s cubic-bezier(.5,.1,.3,1), z-index 0s .38s;
+}
+.flap b{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flap .f{background:var(--env-flap)}
+.flap .g{background:var(--env-flap-in);transform:rotateX(180deg)}
+.seal{
+  left:50%;top:54%;width:46px;height:46px;border-radius:50%;background:var(--seal);z-index:4;
+  display:grid;place-items:center;font-size:20px;transform:translate(-50%,-50%);
+  box-shadow:0 3px 6px rgba(0,0,0,.28);transition:opacity .3s, transform .3s;
+}
+.label{
+  left:50%;bottom:12%;transform:translateX(-50%);z-index:4;color:#fff;
+  font-family:'Bagel Fat One','Nunito',sans-serif;font-size:30px;letter-spacing:.05em;line-height:1;
+  transition:opacity .3s;
+}
+.env.open{animation:none}
+.env.open .flap{transform:rotateX(180deg);z-index:0}
+.env.open .peek{transform:translateY(-52%)}
+.env.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+.env.open .label{opacity:0}
+.env.away{opacity:0;transform:translateY(46px)}
+
+/* ---------- letter ---------- */
+.letter{
+  display:none;position:relative;background:var(--paper);border-radius:6px;margin-top:14px;
+  padding:40px 22px 36px 54px;
+  box-shadow:0 26px 38px -16px var(--shadow);
+  background-image:repeating-linear-gradient(to bottom,transparent 0 31px,var(--rule) 31px 32px);
+  background-position:0 40px;background-repeat:repeat-y;
+  transform-origin:top center;
+}
+.letter::before{content:"";position:absolute;left:38px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.7}
+.tape{
+  position:absolute;top:-15px;left:50%;width:124px;height:30px;margin-left:-62px;transform:rotate(-3deg);
+  background:rgba(240,138,176,.75);
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.35) 0 6px,transparent 6px 12px);
+}
+.letter.show{display:block;animation:unfold 1s cubic-bezier(.2,.8,.2,1)}
+@keyframes unfold{
+  from{opacity:0;transform:perspective(900px) rotateX(-78deg) translateY(-24px)}
+  to{opacity:1;transform:perspective(900px) rotateX(0) translateY(0)}
+}
+.letter h2{
+  font-family:'Bagel Fat One','Nunito',sans-serif;font-weight:400;
+  font-size:26px;line-height:32px;margin:0 0 32px;color:var(--accent);
+}
+.letter p{
+  font-family:'Caveat','Segoe Script','Bradley Hand',cursive;font-weight:500;
+  font-size:24px;line-height:32px;margin:0 0 32px;color:var(--ink);
+}
+.letter p.first{font-weight:700}
+.close{
+  display:block;margin:32px auto 0;border:2px solid var(--accent);background:var(--paper);
+  color:var(--accent);font:inherit;font-weight:700;font-size:15px;padding:9px 24px;border-radius:999px;cursor:pointer;
+}
+.close:hover{background:var(--accent);color:#fff}
+.close:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+@media (prefers-reduced-motion: reduce){
+  .env{animation:none}
+  .env,.flap,.peek,.seal,.label{transition:none}
+  .letter.show{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="sparkles" aria-hidden="true">
+  <span style="top:6%;left:10%;font-size:22px">✦</span>
+  <span style="top:11%;right:12%;font-size:30px">♡</span>
+  <span style="top:30%;left:5%;font-size:16px">✦</span>
+  <span style="top:44%;right:6%;font-size:20px">✦</span>
+  <span style="top:62%;left:9%;font-size:28px">♡</span>
+  <span style="bottom:14%;right:14%;font-size:24px">✦</span>
+  <span style="bottom:7%;left:22%;font-size:18px">✦</span>
+  <span style="bottom:26%;right:4%;font-size:26px">♡</span>
+</div>
+
+<main class="stage">
+  <button class="env" id="env" type="button" aria-label="Open the birthday letter">
+    <span class="back"></span>
+    <span class="peek"><i></i><i></i><i></i><i></i></span>
+    <span class="front"></span>
+    <span class="fold"></span>
+    <span class="flap"><b class="f"></b><b class="g"></b></span>
+    <span class="seal">🤍</span>
+    <span class="label">Open</span>
+  </button>
+
+  <article class="letter" id="letter" aria-live="polite">
+    <span class="tape"></span>
+    <h2>Happy Birthday, Erha! 🥳💗</h2>
+    <p class="first">And advance Happy Birthday na rin sa baby ko Meynard! 🤍</p>
+    <p>I’m really grateful that I met the both of you. I never expected that college would bring me friendships like this, but somehow, you two made everything so much brighter. Thank you for making my college days more fun, full of laughter, random moments, and so many new discoveries and memories I’ll always cherish.</p>
+    <p>I’m so happy that naging close tayong tatlo. You both became such an important part of my college journey, and I honestly can’t imagine it being the same without you. I hope you both know how much I appreciate and treasure our friendship.</p>
+    <p>Wishing you both nothing but happiness, good health, endless blessings, and all the success you deserve. I hope this year brings you even more reasons to smile. Stay amazing, and please don’t ever change. Love you both so much! 🤍🎂</p>
+    <button class="close" id="close" type="button">Fold it back</button>
+  </article>
+</main>
+
+<script>
+(function(){
+  var env=document.getElementById('env');
+  var letter=document.getElementById('letter');
+  var closeBtn=document.getElementById('close');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var busy=false;
+
+  function showLetter(){
+    env.style.display='none';
+    letter.classList.add('show');
+    window.scrollTo({top:0,behavior:'auto'});
+    closeBtn.focus({preventScroll:true});
+    busy=false;
+  }
+  function openEnv(){
+    if(busy)return; busy=true;
+    if(reduce){env.classList.add('open');showLetter();return;}
+    env.classList.add('open');
+    setTimeout(function(){env.classList.add('away')},1750);
+    setTimeout(showLetter,2250);
+  }
+  function closeLetter(){
+    letter.classList.remove('show');
+    env.style.transition='none';
+    env.classList.remove('open','away');
+    env.style.display='block';
+    void env.offsetWidth;
+    env.style.transition='';
+    env.focus({preventScroll:true});
+  }
+  env.addEventListener('click',openEnv);
+  closeBtn.addEventListener('click',closeLetter);
+})();
+</script>
+</body>
+</html>
